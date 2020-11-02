@@ -197,7 +197,31 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
 
+/**
+  * @brief This function handles PVD interrupt through EXTI line 16.
+  */
+void PVD_IRQHandler(void)
+{
+  /* USER CODE BEGIN PVD_IRQn 0 */
+
+  /* USER CODE END PVD_IRQn 0 */
+  HAL_PWR_PVD_IRQHandler();
+  /* USER CODE BEGIN PVD_IRQn 1 */
+
+  /* USER CODE END PVD_IRQn 1 */
+}
+
+int int_ext_isr=0;
 /* USER CODE BEGIN 1 */
+//extern void ext_int7(void);
+extern EXTI_HandleTypeDef extint7_handle;
+void EXTI9_5_IRQHandler(void) //PC7
+{
+
+	//ext_int7();
+	HAL_EXTI_IRQHandler(&extint7_handle);
+
+}
 
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
