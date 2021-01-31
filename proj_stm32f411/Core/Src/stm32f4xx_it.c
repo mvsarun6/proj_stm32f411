@@ -211,7 +211,6 @@ void PVD_IRQHandler(void)
   /* USER CODE END PVD_IRQn 1 */
 }
 
-int int_ext_isr=0;
 /* USER CODE BEGIN 1 */
 //extern void ext_int7(void);
 extern EXTI_HandleTypeDef extint7_handle;
