@@ -30,4 +30,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Middlewares</name>
+			<type>2</type>
+			<location>F:/my_embed_works/github/proj_stm32f411/proj_stm32f411/Middlewares</location>
+		</link>
+	</linkedResources>
 </projectDescription>

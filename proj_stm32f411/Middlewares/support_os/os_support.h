@@ -1,0 +1,3 @@
+
+#define configMINIMAL_STACK_SIZE 128
+#define configTIMER_TASK_STACK_DEPTH 128
