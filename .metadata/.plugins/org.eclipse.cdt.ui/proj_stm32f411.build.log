@@ -1,10 +1,10 @@
-22:43:56 **** Incremental Build of configuration Debug for project proj_stm32f411 ****
+01:15:54 **** Incremental Build of configuration Debug for project proj_stm32f411 ****
 make -j8 all 
 arm-none-eabi-size   proj_stm32f411.elf 
    text	   data	    bss	    dec	    hex	filename
-   4648	     20	   1572	   6240	   1860	proj_stm32f411.elf
+  17948	     52	  20500	  38500	   9664	proj_stm32f411.elf
 Finished building: default.size.stdout
  
 
-22:43:56 Build Finished. 0 errors, 0 warnings. (took 237ms)
+01:15:55 Build Finished. 0 errors, 0 warnings. (took 369ms)
 

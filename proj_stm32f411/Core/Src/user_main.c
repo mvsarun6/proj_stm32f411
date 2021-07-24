@@ -7,6 +7,11 @@
 #include "user_main.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_exti.h"
+
+
+#include "FreeRTOS.h"
+
+
 void ext_int7(void);
 
 EXTI_HandleTypeDef extint7_handle = {7, &ext_int7};
@@ -35,18 +40,31 @@ void wait(int X)
         }
     }
 }
-
-
-
-
 #include "user_i2c.h"
 
-
 HAL_StatusTypeDef ret=0;
+
+
+
+
+void TASK_default_fn(void)
+{
+
+}
+
+
+
 void user_main()
 {
 	//user code 
 	
+
+     //FreeRTOS
+	  xTaskCreate ((TaskFunction_t)TASK_default_fn, "DEFAULT_TASK", (uint16_t)128/*stack*/, NULL, 20/*prio*/, NULL);
+	  vTaskStartScheduler();
+
+
+
 	ret = HAL_EXTI_SetConfigLine(&extint7_handle, &extint_config); //Configure ext int 7, using port C
 
 	
