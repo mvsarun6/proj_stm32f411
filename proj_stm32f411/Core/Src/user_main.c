@@ -40,30 +40,14 @@ void wait(int X)
         }
     }
 }
+
+
 #include "user_i2c.h"
 
 HAL_StatusTypeDef ret=0;
 
-
-
-
 void TASK_default_fn(void)
 {
-
-}
-
-
-
-void user_main()
-{
-	//user code 
-	
-
-     //FreeRTOS
-	  xTaskCreate ((TaskFunction_t)TASK_default_fn, "DEFAULT_TASK", (uint16_t)128/*stack*/, NULL, 20/*prio*/, NULL);
-	  vTaskStartScheduler();
-
-
 
 	ret = HAL_EXTI_SetConfigLine(&extint7_handle, &extint_config); //Configure ext int 7, using port C
 
@@ -75,27 +59,38 @@ HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_Call
 HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLine);*/
 
 	//i2c_init();
- int status=5;
+    int status=5;
 	//while(1)
 	{
 
 		status = i2c_start_tx();
 	}
 
+	float x;
 	while(1)
 	{
 		//if(intserv_routine==1)
 		{
 		//	intserv_routine=0;
 
-		    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, 1); //Set Port D 0
-		    wait(1);
-		    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, 0); //Set Port D 0
-		    wait(1);
+		    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 1); //Set Port D 15
+		    wait(1000);
+		    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 0); //Set Port D 15
+		    wait(1000);
 		}
-
-
+		x =10.25;
+		x=x*3.5;
 	}
+}
 
+
+
+void user_main()
+{
+	//user code
+
+     //FreeRTOS
+	  xTaskCreate ((TaskFunction_t)TASK_default_fn, "DEFAULT_TASK", (uint16_t)128/*stack*/, NULL, 20/*prio*/, NULL);
+	  vTaskStartScheduler();
 }
 
