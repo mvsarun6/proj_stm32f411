@@ -12,19 +12,13 @@
 #include "FreeRTOS.h"
 
 
-void ext_int7(void);
+void blueresetbutton_action(void);
 
-EXTI_HandleTypeDef extint7_handle = {7, &ext_int7};
-EXTI_ConfigTypeDef extint_config = {EXTI_LINE_7,EXTI_MODE_INTERRUPT,EXTI_TRIGGER_RISING,EXTI_GPIOC};
-
-volatile int intserv_routine=0;
-
-void ext_int7(void)
+void blueresetbutton_action(void)
 {
-
-	intserv_routine=1;
-
-	///HAL_EXTI_IRQHandler(&extint7_handle);
+    static unsigned char toggleled=0;
+    toggleled^=1;
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, toggleled); //Set PortD 15 Blue led
 }
 
 //#include <stdio.h>
@@ -48,14 +42,6 @@ HAL_StatusTypeDef ret=0;
 
 void TASK1_default_fn(void)
 {
-//	ret = HAL_EXTI_SetConfigLine(&extint7_handle, &extint_config); //Configure ext int 7, using port C
-
-		/*HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig);
-HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig);
-HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(EXTI_HandleTypeDef *hexti);
-HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_CallbackIDTypeDef CallbackID, void (*pPendingCbfn)(void));
-HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLine);*/
-
 	//i2c_init();
    // int status=5;
 	//while(1)
@@ -68,14 +54,11 @@ HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLin
 	x =10.25;
 	while(1)
 	{
-		//if(intserv_routine==1)
-		{
-		//	intserv_routine=0;
-		    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 1); //Set Port D 15
-		    vTaskDelay( 500 );
-		 //   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 0); //Set Port D 15
+
+		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, 1); //Set PortD 12 Green led
+		vTaskDelay( 500 );
+		//   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, 0); //Clear PortD 12 Green led
 		//    vTaskDelay( 250 );
-		}
 		x=x*3.5;
 	}
 	vTaskDelete(NULL);
@@ -87,7 +70,7 @@ void TASK2_default_fn(void)
 	while(1)
 	{
 		vTaskDelay( 300 );
-	    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 0); //Set Port D 15
+	    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, 0); //Clear PortD 12 Green led
 	}
 	vTaskDelete(NULL);
 }

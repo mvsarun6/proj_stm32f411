@@ -50,6 +50,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
   /* Enable the TIM5 global Interrupt */
   HAL_NVIC_EnableIRQ(TIM5_IRQn);
+
   /* Enable TIM5 clock */
   __HAL_RCC_TIM5_CLK_ENABLE();
 
@@ -58,9 +59,8 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
   /* Compute TIM5 clock */
   uwTimclock = 2*HAL_RCC_GetPCLK1Freq();
-
   /* Compute the prescaler value to have TIM5 counter clock equal to 1MHz */
-  uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000) - 1);
+  uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000U) - 1U);
 
   /* Initialize TIM5 */
   htim5.Instance = TIM5;
@@ -71,10 +71,11 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   + ClockDivision = 0
   + Counter direction = Up
   */
-  htim5.Init.Period = (1000000 / 1000) - 1;
+  htim5.Init.Period = (1000000U / 1000U) - 1U;
   htim5.Init.Prescaler = uwPrescalerValue;
   htim5.Init.ClockDivision = 0;
   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
+
   if(HAL_TIM_Base_Init(&htim5) == HAL_OK)
   {
     /* Start the TIM time Base generation in interrupt mode */

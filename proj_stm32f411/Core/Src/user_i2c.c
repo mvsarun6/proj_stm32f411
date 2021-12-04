@@ -20,31 +20,14 @@
 I2C_HandleTypeDef I2CxHandle;
 
 extern HAL_StatusTypeDef HAL_I2C_Init(I2C_HandleTypeDef *hi2c);
-
+extern I2C_HandleTypeDef hi2c1;
 void i2c_init()
 {
 
 
 	  /*Configure GPIO pin : PB6 */ //SCL in MX_GPIO_Init()
 	  /*Configure GPIO pin : PB7 */ //SDA in MX_GPIO_Init()
-
-	  I2CxHandle.Instance             = I2Cx;
-	  I2CxHandle.Init.AddressingMode  = I2C_ADDRESSINGMODE_7BIT;
-	  I2CxHandle.Init.ClockSpeed      = 400000;
-	  I2CxHandle.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-	  I2CxHandle.Init.DutyCycle       = I2C_DUTYCYCLE_16_9;
-	  I2CxHandle.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-	  I2CxHandle.Init.NoStretchMode   = I2C_NOSTRETCH_DISABLE;
-	  I2CxHandle.Init.OwnAddress1     = I2C_OWN_ADDRESS;
-	  I2CxHandle.Init.OwnAddress2     = 0;
-
-	  HAL_I2C_Init(&I2CxHandle);
-
-	//  if(HAL_I2C_Init(&I2CxHandle) != HAL_OK)
-	  {
-	    /* Initialization Error */
-	    //Error_Handler();
-	  }
+	 // HAL_I2C_Init() is called inside MX_I2C1_Init, since its configured via UI
 }
 
 #define TXBUFFERSIZE 2
