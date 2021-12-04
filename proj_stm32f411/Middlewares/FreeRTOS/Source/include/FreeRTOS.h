@@ -379,11 +379,11 @@ extern "C" {
 #endif
 
 #ifndef configCHECK_FOR_STACK_OVERFLOW
-	#define configCHECK_FOR_STACK_OVERFLOW 0
+	#define configCHECK_FOR_STACK_OVERFLOW 1
 #endif
 
 #ifndef configRECORD_STACK_HIGH_ADDRESS
-	#define configRECORD_STACK_HIGH_ADDRESS 0
+	#define configRECORD_STACK_HIGH_ADDRESS 1
 #endif
 
 #ifndef configINCLUDE_FREERTOS_TASK_C_ADDITIONS_H
@@ -719,7 +719,7 @@ extern "C" {
 #endif
 
 #ifndef configUSE_MALLOC_FAILED_HOOK
-	#define configUSE_MALLOC_FAILED_HOOK 0
+	#define configUSE_MALLOC_FAILED_HOOK 1
 #endif
 
 #ifndef portPRIVILEGE_BIT

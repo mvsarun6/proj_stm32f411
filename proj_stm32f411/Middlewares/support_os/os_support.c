@@ -35,3 +35,20 @@ void vApplicationGetTimerTaskMemory (StaticTask_t **ppxTimerTaskTCBBuffer, Stack
   *ppxTimerTaskStackBuffer = &Timer_Stack[0];
   *pulTimerTaskStackSize   = (uint32_t)configTIMER_TASK_STACK_DEPTH;
 }
+
+void vApplicationMallocFailedHook()
+{
+  while(1);
+}
+
+
+void vApplicationStackOverflowHook()
+{
+  while(1);
+}
+
+
+void vApplicationIdleHook()
+{
+  while(1);
+}

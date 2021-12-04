@@ -46,51 +46,77 @@ void wait(int X)
 
 HAL_StatusTypeDef ret=0;
 
-void TASK_default_fn(void)
+void TASK1_default_fn(void)
 {
+//	ret = HAL_EXTI_SetConfigLine(&extint7_handle, &extint_config); //Configure ext int 7, using port C
 
-	ret = HAL_EXTI_SetConfigLine(&extint7_handle, &extint_config); //Configure ext int 7, using port C
-
-	
-	/*HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig);
+		/*HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig);
 HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig);
 HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(EXTI_HandleTypeDef *hexti);
 HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_CallbackIDTypeDef CallbackID, void (*pPendingCbfn)(void));
 HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLine);*/
 
 	//i2c_init();
-    int status=5;
+   // int status=5;
 	//while(1)
 	{
 
-		status = i2c_start_tx();
+	//	status = i2c_start_tx();
 	}
 
 	float x;
+	x =10.25;
 	while(1)
 	{
 		//if(intserv_routine==1)
 		{
 		//	intserv_routine=0;
-
 		    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 1); //Set Port D 15
-		    wait(1000);
-		    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 0); //Set Port D 15
-		    wait(1000);
+		    vTaskDelay( 500 );
+		 //   HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 0); //Set Port D 15
+		//    vTaskDelay( 250 );
 		}
-		x =10.25;
 		x=x*3.5;
 	}
+	vTaskDelete(NULL);
 }
 
 
+void TASK2_default_fn(void)
+{
+	while(1)
+	{
+		vTaskDelay( 300 );
+	    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, 0); //Set Port D 15
+	}
+	vTaskDelete(NULL);
+}
 
+void timerfunc()
+{
+
+
+}
+
+#include "timers.h"
+//#include "misc.h"
 void user_main()
 {
 	//user code
 
+
+	/* Ensure all priority bits are assigned as preemption priority bits. */
+	//NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+	
+
+
      //FreeRTOS
-	  xTaskCreate ((TaskFunction_t)TASK_default_fn, "DEFAULT_TASK", (uint16_t)128/*stack*/, NULL, 20/*prio*/, NULL);
+	  xTaskCreate ((TaskFunction_t)TASK1_default_fn, "APP1_TASK", (uint16_t)1024/*stack*/, NULL, 20/*prio*/, NULL);
+	  xTaskCreate ((TaskFunction_t)TASK2_default_fn, "APP2_TASK", (uint16_t)1024/*stack*/, NULL, 15/*prio*/, NULL);
+	//TimerHandle_t *timer = xTimerCreate( "newtimer",100, 1, NULL, timerfunc );
+
+	// xTimerStart( timer, 0 );
+
 	  vTaskStartScheduler();
 }
 

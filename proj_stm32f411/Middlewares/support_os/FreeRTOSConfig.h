@@ -59,7 +59,7 @@
 #define configUSE_PREEMPTION                     1
 #define configSUPPORT_STATIC_ALLOCATION          1
 #define configSUPPORT_DYNAMIC_ALLOCATION         1
-#define configUSE_IDLE_HOOK                      0
+#define configUSE_IDLE_HOOK                      1
 #define configUSE_TICK_HOOK                      0
 #define configCPU_CLOCK_HZ                       ( SystemCoreClock )
 #define configTICK_RATE_HZ                       ((TickType_t)1000)
@@ -144,8 +144,8 @@ header file. */
 
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
 standard names. */
-//#define vPortSVCHandler    SVC_Handler //maping it directly in SVC_Handler() of stm32f4xx_it.c
-//#define xPortPendSVHandler PendSV_Handler//maping it directly in SVC_Handler() of stm32f4xx_it.c
+#define vPortSVCHandler    SVC_Handler //maping it directly in SVC_Handler() of stm32f4xx_it.c
+#define xPortPendSVHandler PendSV_Handler//maping it directly in SVC_Handler() of stm32f4xx_it.c
 
 /* IMPORTANT: This define is commented when used with STM32Cube firmware, when the timebase source is SysTick,
               to prevent overwriting SysTick_Handler defined within STM32Cube HAL */
